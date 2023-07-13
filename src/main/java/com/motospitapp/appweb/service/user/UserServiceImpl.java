@@ -40,12 +40,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public ResponseEntity<String> deleteUser(int userId) {
         try {
-            if (userRepository.existsById(userId)){
+            if (userRepository.existsById(userId)) {
                 userRepository.deleteById(userId);
+                return ResponseEntity.ok("User delete successfully");
+            }else{
+                return ResponseEntity.notFound().build();
             }
-            return ResponseEntity.ok("User delete successfully");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
+
         }
     }
 
