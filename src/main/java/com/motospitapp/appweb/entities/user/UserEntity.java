@@ -21,6 +21,9 @@ public class UserEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "address")
     private String address;
 
@@ -40,7 +43,6 @@ public class UserEntity {
     private Date birthdate;
 
     @Column(name = "gender")
-    private String gender;
-
+    private char gender;
 
 }
