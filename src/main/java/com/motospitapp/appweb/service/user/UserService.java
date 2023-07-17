@@ -1,6 +1,6 @@
 package com.motospitapp.appweb.service.user;
 
-import com.motospitapp.appweb.entities.user.UserEntity;
+import com.motospitapp.appweb.model.entities.user.UserEntity;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
