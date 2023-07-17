@@ -1,15 +1,17 @@
 package com.motospitapp.appweb.controller.user;
 
-import com.motospitapp.appweb.entities.user.UserEntity;
+import com.motospitapp.appweb.model.entities.user.UserEntity;
 import com.motospitapp.appweb.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-@RequestMapping(path="/users", produces = "application/json")
+@RequestMapping(path="motospit/users", produces = "application/json")
 @RestController
 public class UserControllerImpl implements UserController {
 
@@ -19,7 +21,12 @@ public class UserControllerImpl implements UserController {
     @Override
     @PostMapping(path="/add")
     public ResponseEntity<String> addUser(@RequestBody UserEntity user) {
-        return userService.saveUser(user);
+        try{
+            return userService.saveUser(user);
+        } catch (EntityExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
     }
 
     @Override

@@ -1,10 +1,13 @@
 package com.motospitapp.appweb.service.user;
 
-import com.motospitapp.appweb.entities.user.UserEntity;
-import com.motospitapp.appweb.repositories.user.UserRepository;
+import com.motospitapp.appweb.model.entities.user.UserEntity;
+import com.motospitapp.appweb.model.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
@@ -17,8 +20,16 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     @Override
     public ResponseEntity<String> saveUser(UserEntity user) {
-        userRepository.save(user);
-        return ResponseEntity.ok("User add successfully");
+        try {
+            if (userRepository.existsById(user.getUserId())){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+            } else {
+                userRepository.save(user);
+                return ResponseEntity.ok("User add successfully");
+            }
+        } catch (EntityExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     @Override

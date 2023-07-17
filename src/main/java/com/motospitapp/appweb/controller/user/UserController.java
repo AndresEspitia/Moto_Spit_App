@@ -1,6 +1,6 @@
 package com.motospitapp.appweb.controller.user;
 
-import com.motospitapp.appweb.entities.user.UserEntity;
+import com.motospitapp.appweb.model.entities.user.UserEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

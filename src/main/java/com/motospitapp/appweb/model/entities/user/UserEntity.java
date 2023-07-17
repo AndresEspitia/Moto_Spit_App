@@ -1,4 +1,4 @@
-package com.motospitapp.appweb.entities.user;
+package com.motospitapp.appweb.model.entities.user;
 
 import lombok.Data;
 
@@ -11,7 +11,6 @@ import java.sql.Date;
 public class UserEntity {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true)
     private int userId;
 
