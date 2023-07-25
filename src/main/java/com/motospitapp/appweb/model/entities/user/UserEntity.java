@@ -32,7 +32,7 @@ public class UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
     @NotNull
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
     @NotNull
     @Column(name = "password")
@@ -51,4 +51,6 @@ public class UserEntity {
     @JoinTable(name= "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name= "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    public UserEntity() {
+    }
 }
