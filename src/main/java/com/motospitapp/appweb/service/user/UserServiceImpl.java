@@ -16,23 +16,23 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl{
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     public Optional<UserEntity> getByUserName(String userName){
-        return userRepository.findByUserName(userName);
+        return userRepository.findByUsername(userName);
     }
 
     public boolean existsByUserName(String userName) {
-        return userRepository.existsByUserName(userName);
+        return userRepository.existsByUsername(userName);
     }
 
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
-    @Override
+
     public ResponseEntity<String> saveUser(UserEntity user) {
         try {
             if (userRepository.existsById(user.getUserId())){
@@ -46,12 +46,12 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    @Override
+
     public List<UserEntity> listUsers() {
         return userRepository.findAll();
     }
 
-    @Override
+
     public ResponseEntity<UserEntity> findUserById(int userId) {
         try {
             Optional<UserEntity> user = userRepository.findById(userId);
@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    @Override
     public ResponseEntity<String> deleteUser(int userId) {
         try {
             if (userRepository.existsById(userId)) {
@@ -77,11 +76,11 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    @Override
+    /*
     public ResponseEntity<String> updateUser(int userId, UserEntity user) {
         try {
             if (userRepository.existsById(userId)) {
-                UserEntity userEntity = new UserEntity();
+                UserEntity userEntity = new UserEntity(newUser.getUserId(), newUser.getName(), newUser.getLastName(), newUser.getEmail(), newUser.getAddress(), newUser.getPhoneNumber(), newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()), newUser.isStatus(), newUser.getBirthdate(), newUser.getGender());
                 userEntity.setUserId(userId);
                 userEntity.setName(user.getName());
                 userEntity.setLastName(user.getLastName());
@@ -103,4 +102,6 @@ public class UserServiceImpl implements UserService{
             return ResponseEntity.notFound().build();
         }
     }
+    */
+
 }

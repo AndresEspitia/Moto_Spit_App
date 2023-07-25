@@ -51,6 +51,35 @@ public class UserEntity {
     @JoinTable(name= "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name= "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public UserEntity() {
+    public UserEntity(int userId, String name, String lastName, String email, String address, String phoneNumber, String username, String encode, boolean status, Date birthdate, char gender) {
+    }
+
+    public UserEntity(String name, String lastName, String email, String address, String phoneNumber, String username, String password, boolean status, Date birthdate, char gender, Set<Role> roles) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.roles = roles;
+    }
+
+    public UserEntity(int userId, String name, String lastName, String email, String address, String phoneNumber, String username, String password, boolean status, Date birthdate, char gender, Set<Role> roles) {
+        this.userId = userId;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.roles = roles;
     }
 }

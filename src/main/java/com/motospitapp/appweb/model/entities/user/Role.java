@@ -15,4 +15,7 @@ public class Role {
     @NotNull
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
+
+    public Role() {
+    }
 }

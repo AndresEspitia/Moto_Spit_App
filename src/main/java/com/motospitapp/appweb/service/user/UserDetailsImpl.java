@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailsImpl implements UserDetailsService {
 
     @Autowired
-    private UserServiceImpl  userService;
+    UserServiceImpl  userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userService.getByUserName(username).get();

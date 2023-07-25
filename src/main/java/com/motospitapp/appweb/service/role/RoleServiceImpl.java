@@ -19,4 +19,8 @@ public class RoleServiceImpl {
     public Optional<Role> getByRoleName(RoleName roleName){
         return roleRepoository.findByRoleName(roleName);
     }
+
+    public void save(Role role) {
+        roleRepoository.save(role);
+    }
 }

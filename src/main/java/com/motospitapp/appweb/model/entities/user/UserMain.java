@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@Entity
 public class UserMain implements UserDetails {
 
     private String name;

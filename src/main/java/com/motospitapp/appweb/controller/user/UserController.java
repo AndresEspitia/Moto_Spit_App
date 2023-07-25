@@ -17,6 +17,8 @@ public interface UserController {
 
     public ResponseEntity<String> deleteUser(@PathVariable int userId);
 
+    /*
     public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @PathVariable int userId);
 
+     */
 }

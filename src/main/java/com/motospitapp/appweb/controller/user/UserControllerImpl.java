@@ -1,7 +1,7 @@
 package com.motospitapp.appweb.controller.user;
 
 import com.motospitapp.appweb.model.entities.user.UserEntity;
-import com.motospitapp.appweb.service.user.UserService;
+import com.motospitapp.appweb.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.List;
 public class UserControllerImpl implements UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Override
     @PostMapping(path="/add")
@@ -55,6 +55,7 @@ public class UserControllerImpl implements UserController {
         }
     }
 
+    /*
     @Override
     @PutMapping(path="/update/{userId}")
     public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @PathVariable int userId){
@@ -64,5 +65,6 @@ public class UserControllerImpl implements UserController {
             return ResponseEntity.notFound().build();
         }
     }
+*/
 
 }
