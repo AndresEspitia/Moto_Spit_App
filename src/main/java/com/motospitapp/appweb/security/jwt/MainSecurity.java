@@ -1,4 +1,4 @@
-package com.motospitapp.appweb.security;
+package com.motospitapp.appweb.security.jwt;
 
 import com.motospitapp.appweb.security.jwt.JwtEntryPoint;
 import com.motospitapp.appweb.security.jwt.JwtTokenFilter;
