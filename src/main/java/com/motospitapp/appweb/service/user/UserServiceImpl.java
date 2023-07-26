@@ -1,18 +1,22 @@
 package com.motospitapp.appweb.service.user;
 
+import com.motospitapp.appweb.model.entities.user.Role;
 import com.motospitapp.appweb.model.entities.user.UserEntity;
+import com.motospitapp.appweb.model.enums.RoleName;
 import com.motospitapp.appweb.model.repositories.user.UserRepository;
+import com.motospitapp.appweb.service.role.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -20,6 +24,12 @@ public class UserServiceImpl{
 
     @Autowired
     UserRepository userRepository;
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleServiceImpl roleService;
 
     public Optional<UserEntity> getByUserName(String userName){
         return userRepository.findByUsername(userName);
@@ -33,17 +43,8 @@ public class UserServiceImpl{
         return userRepository.existsByEmail(email);
     }
 
-    public ResponseEntity<String> saveUser(UserEntity user) {
-        try {
-            if (userRepository.existsById(user.getUserId())){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
-            } else {
-                userRepository.save(user);
-                return ResponseEntity.ok("User add successfully");
-            }
-        } catch (EntityExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+    public void saveUser(UserEntity user) {
+        userRepository.save(user);
     }
 
 
@@ -76,11 +77,11 @@ public class UserServiceImpl{
         }
     }
 
-    /*
+
     public ResponseEntity<String> updateUser(int userId, UserEntity user) {
         try {
             if (userRepository.existsById(userId)) {
-                UserEntity userEntity = new UserEntity(newUser.getUserId(), newUser.getName(), newUser.getLastName(), newUser.getEmail(), newUser.getAddress(), newUser.getPhoneNumber(), newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()), newUser.isStatus(), newUser.getBirthdate(), newUser.getGender());
+                UserEntity userEntity = new UserEntity();
                 userEntity.setUserId(userId);
                 userEntity.setName(user.getName());
                 userEntity.setLastName(user.getLastName());
@@ -88,10 +89,15 @@ public class UserServiceImpl{
                 userEntity.setAddress(user.getAddress());
                 userEntity.setPhoneNumber(user.getPhoneNumber());
                 userEntity.setUsername(user.getUsername());
-                userEntity.setPassword(user.getPassword());
+                userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
                 userEntity.setStatus(true);
                 userEntity.setBirthdate(user.getBirthdate());
                 userEntity.setGender(user.getGender());
+                Set<Role> roles = new HashSet<>();
+                roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
+                if (userEntity.getRoles().contains("admin"))
+                    roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
+                userEntity.setRoles(roles);
                 userRepository.save(userEntity);
 
                 return ResponseEntity.ok("User update successfully");
@@ -102,6 +108,5 @@ public class UserServiceImpl{
             return ResponseEntity.notFound().build();
         }
     }
-    */
 
 }

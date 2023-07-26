@@ -19,17 +19,6 @@ public class UserControllerImpl implements UserController {
     private UserServiceImpl userService;
 
     @Override
-    @PostMapping(path="/add")
-    public ResponseEntity<String> addUser(@RequestBody UserEntity user) {
-        try{
-            return userService.saveUser(user);
-        } catch (EntityExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
-    }
-
-    @Override
     @GetMapping(path="/list")
     public List<UserEntity>listUsers() {
         return userService.listUsers();
@@ -55,7 +44,7 @@ public class UserControllerImpl implements UserController {
         }
     }
 
-    /*
+
     @Override
     @PutMapping(path="/update/{userId}")
     public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @PathVariable int userId){
@@ -65,6 +54,6 @@ public class UserControllerImpl implements UserController {
             return ResponseEntity.notFound().build();
         }
     }
-*/
+
 
 }

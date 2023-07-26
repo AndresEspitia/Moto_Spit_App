@@ -18,4 +18,10 @@ public class Role {
 
     public Role() {
     }
+
+    public Role(RoleName roleName) {
+        this.roleName = roleName;
+    }
+
+
 }

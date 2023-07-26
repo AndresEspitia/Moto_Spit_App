@@ -43,7 +43,6 @@ public class LoginControllerImpl {
 
     @PostMapping("/add-user")
     public ResponseEntity<?> newUser(@RequestBody NewUser newUser, BindingResult bindingResult) {
-        System.out.println("newuaser" + newUser);
         if (bindingResult.hasErrors())
             return new ResponseEntity(new Message("Data malformed o invalid email"), HttpStatus.BAD_REQUEST);
         if (userService.existsByUserName(newUser.getUsername()))
@@ -53,6 +52,7 @@ public class LoginControllerImpl {
         UserEntity user =
                 new UserEntity(newUser.getUserId(), newUser.getName(), newUser.getLastName(), newUser.getEmail(), newUser.getAddress(), newUser.getPhoneNumber(), newUser.getUsername(),
                         passwordEncoder.encode(newUser.getPassword()), newUser.isStatus(), newUser.getBirthdate(),newUser.getGender());
+        user.setUserId(newUser.getUserId());
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
         if (newUser.getRoles().contains("admin"))

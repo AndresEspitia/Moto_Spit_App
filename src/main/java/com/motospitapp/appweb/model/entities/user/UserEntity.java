@@ -47,28 +47,14 @@ public class UserEntity {
     @Column(name = "gender")
     private char gender;
     @NotNull
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name= "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name= "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public UserEntity(int userId, String name, String lastName, String email, String address, String phoneNumber, String username, String encode, boolean status, Date birthdate, char gender) {
+    public UserEntity() {
     }
 
-    public UserEntity(String name, String lastName, String email, String address, String phoneNumber, String username, String password, boolean status, Date birthdate, char gender, Set<Role> roles) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.username = username;
-        this.password = password;
-        this.status = status;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.roles = roles;
-    }
-
-    public UserEntity(int userId, String name, String lastName, String email, String address, String phoneNumber, String username, String password, boolean status, Date birthdate, char gender, Set<Role> roles) {
+    public UserEntity(int userId, String name, String lastName, String email, String address, String phoneNumber, String username, String password, boolean status, Date birthdate, char gender) {
         this.userId = userId;
         this.name = name;
         this.lastName = lastName;
@@ -80,6 +66,5 @@ public class UserEntity {
         this.status = status;
         this.birthdate = birthdate;
         this.gender = gender;
-        this.roles = roles;
     }
 }
