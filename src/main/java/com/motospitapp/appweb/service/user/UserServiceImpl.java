@@ -28,9 +28,6 @@ public class UserServiceImpl{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private RoleServiceImpl roleService;
-
     public Optional<UserEntity> getByUserName(String userName){
         return userRepository.findByUsername(userName);
     }
@@ -81,6 +78,8 @@ public class UserServiceImpl{
     public ResponseEntity<String> updateUser(int userId, UserEntity user) {
         try {
             if (userRepository.existsById(userId)) {
+                var userRole = userRepository.findById(userId);
+                System.out.println("userrrrr" + userRole.get().getRoles());
                 UserEntity userEntity = new UserEntity();
                 userEntity.setUserId(userId);
                 userEntity.setName(user.getName());
@@ -93,11 +92,7 @@ public class UserServiceImpl{
                 userEntity.setStatus(true);
                 userEntity.setBirthdate(user.getBirthdate());
                 userEntity.setGender(user.getGender());
-                Set<Role> roles = new HashSet<>();
-                roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
-                if (userEntity.getRoles().contains("admin"))
-                    roles.add(roleService.getByRoleName(RoleName.ROLE_ADMIN).get());
-                userEntity.setRoles(roles);
+                userEntity.setRoles(userRole.get().getRoles());
                 userRepository.save(userEntity);
 
                 return ResponseEntity.ok("User update successfully");
