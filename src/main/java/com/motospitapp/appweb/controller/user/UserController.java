@@ -9,13 +9,12 @@ import java.util.List;
 
 public interface UserController {
 
-    public ResponseEntity<String> addUser(@RequestBody UserEntity user);
-
     public List<UserEntity> listUsers();
 
     public ResponseEntity<UserEntity> findUserById(@PathVariable int userId);
 
     public ResponseEntity<String> deleteUser(@PathVariable int userId);
+
 
     public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @PathVariable int userId);
 
