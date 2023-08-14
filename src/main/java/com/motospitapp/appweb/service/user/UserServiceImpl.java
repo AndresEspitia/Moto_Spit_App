@@ -79,7 +79,6 @@ public class UserServiceImpl{
         try {
             if (userRepository.existsById(userId)) {
                 var userRole = userRepository.findById(userId);
-                System.out.println("userrrrr" + userRole.get().getRoles());
                 UserEntity userEntity = new UserEntity();
                 userEntity.setUserId(userId);
                 userEntity.setName(user.getName());
